@@ -9,7 +9,7 @@ Edit this 'README.md' file to report all your results. There is no need to write
 
 The image below reports the constrained points for the cat. Epsilon has been adjusted iteratively in such a way that normals do not intersect, meaning that the nearest point to every off surface constraint is the corresponding on surface constraint.
 
-![Cat constraints](https://github.com/ccasam/GP2020-Assignments/master/assignment2/results/constraints.png)
+![Cat constraints](https://github.com/ccasam/GP2020-Assignments/tree/master/assignment2/results/constraints.png)
 
 2) Show screenshots of the grid with nodes colored according to their implicit function values (cat.off and luigi.off).
 
