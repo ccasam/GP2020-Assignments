@@ -58,3 +58,7 @@ Moving Least Squares explicit gradient computation:
 2) Show screenshots comparing the 'hound.off' of the normal based reconstruction to the point based reconstruction of the mandatory task.
 
 3) Compare your MLS reconstruction results to the surfaces obtained with Screened Poisson Reconstruction and RIMLS, and try to understand the differences. Report your findings.
+
+![Poisson](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/poissonhound.png)
+
+![RIMLS](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/marchingcubesRIMLS.png)
