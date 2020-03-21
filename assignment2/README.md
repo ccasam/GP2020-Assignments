@@ -15,11 +15,11 @@ The image below reports the constrained points for the cat. Epsilon has been adj
 
 Red points represent positive values of the implicit function, green points negative values. The grid has been slightly expanded around the mesh in all dimensions, to avoid artifacts in the mesh reconstruction.
 
-Cat:
+* Cat
 
 ![Cat grid](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/catgrid.png)
 
-Luigi:
+* Luigi
 
 ![Luigi grid](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/luigigrid.png)
 
@@ -34,10 +34,13 @@ Luigi:
 
 ### Comments
 
-* Wendland radius
-* Resolution
-* Degree
-* Axis alignment
+* Wendland radius: increasing the radius gives a smoother surface and generally cause loss of details. On the contrary, a too small radius does not allow to reconstruct the mesh, since otherwise no points on the grid would have neighboring constrained points and we could not fit a polynomial locally. We use a radius deoendent on the dimension of the bounding box diagonal (in the two meshes shown here we used r= 0.07\*diagonal).
+
+* Resolution: increasing the resolution improves the quality of the reconstruction, but makes the computations more expensive. The cat was reconstructed with a resolution of 20; for Luigi we used a resolution of 30, wich was necessary because the legs are near to each other (lower resolution caused the legs to be united).
+
+* Degree: with degree 0 we obtained better reconstructions; in fact, when increasing the degree, some extra matter around the true mesh appears.
+
+* Axis alignment: to save computation time, we load the mesh of Luigi in such a way that it is axis aligned. We implemented our simple axis alignment algorithm with PCA, namely taking the direction with highest variance in the point cloud and rotating the pointcloud (and corresponding normals!) in such a way that such direction is aligned with one of the axes (axis y for example).
 
 
 ### Theory question: Save your notes to assignment2/results and add a link to this page.
@@ -45,7 +48,7 @@ Luigi:
 1) Save your notes and add a link to this page.
 
 Proof that normal to surface is proportional to the gradient:
-![normal](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/gradient_orthogonal.png)
+![normal](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/gradient_orthogonal.jpeg)
 
 Moving Least Squares explicit gradient computation:
 ![MLS gradient](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/gradient.jpg)
