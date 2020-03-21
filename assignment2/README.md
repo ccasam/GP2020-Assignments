@@ -25,11 +25,13 @@ Red points represent positive values of the implicit function, green points nega
 
 3) Show screenshots of the reconstructed surfaces. Experiment with different parameter settings: grid resolution (also anisotropic in the 3 axes), Wendland function radius, polynomial degree. Add all these settings to the GUI to ease experimentation. Briefly summarize your observations and save the reconstructed models in the off format for every point-cloud dataset provided (assignment2/results).
 
-Cat:
+* Cat
+
 ![Cat](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/cat.png)
 
 
-Luigi:
+* Luigi
+
 ![Luigi](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/luigi.png)
 
 ### Comments
