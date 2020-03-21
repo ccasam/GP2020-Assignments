@@ -16,6 +16,7 @@ The image below reports the constrained points for the cat. Epsilon has been adj
 Red points represent positive values of the implicit function, green points negative values. The grid has been slightly expanded around the mesh in all dimensions, to avoid artifacts in the mesh reconstruction.
 
 Cat:
+
 ![Cat grid](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/catgrid.png)
 
 Luigi:
@@ -44,7 +45,7 @@ Luigi:
 1) Save your notes and add a link to this page.
 
 Proof that normal to surface is proportional to the gradient:
-![normal](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/.png)
+![normal](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/gradient_orthogonal.png)
 
 Moving Least Squares explicit gradient computation:
 ![MLS gradient](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/gradient.jpg)
