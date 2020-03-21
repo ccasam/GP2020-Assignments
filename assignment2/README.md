@@ -16,20 +16,20 @@ The image below reports the constrained points for the cat. Epsilon has been adj
 Red points represent positive values of the implicit function, green points negative values. The grid has been slightly expanded around the mesh in all dimensions, to avoid artifacts in the mesh reconstruction.
 
 Cat:
-![Cat grid](https://github.com/ccasam/GP2020-Assignments/edit/master/assignment2/results/catgrid.png)
+![Cat grid](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/catgrid.png)
 
 Luigi:
 
-![Luigi grid](https://github.com/ccasam/GP2020-Assignments/edit/master/assignment2/results/luigigrid.png)
+![Luigi grid](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/luigigrid.png)
 
 3) Show screenshots of the reconstructed surfaces. Experiment with different parameter settings: grid resolution (also anisotropic in the 3 axes), Wendland function radius, polynomial degree. Add all these settings to the GUI to ease experimentation. Briefly summarize your observations and save the reconstructed models in the off format for every point-cloud dataset provided (assignment2/results).
 
 Cat:
-![Cat](https://github.com/ccasam/GP2020-Assignments/edit/master/assignment2/results/cat.png)
+![Cat](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/cat.png)
 
 
 Luigi:
-![Luigi](https://github.com/ccasam/GP2020-Assignments/edit/master/assignment2/results/luigi.png)
+![Luigi](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/luigi.png)
 
 ### Comments
 
@@ -44,10 +44,10 @@ Luigi:
 1) Save your notes and add a link to this page.
 
 Proof that normal to surface is proportional to the gradient:
-![normal](https://github.com/ccasam/GP2020-Assignments/edit/master/assignment2/results/.png)
+![normal](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/.png)
 
 Moving Least Squares explicit gradient computation:
-![MLS gradient](https://github.com/ccasam/GP2020-Assignments/edit/master/assignment2/results/gradient.jpg)
+![MLS gradient](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/gradient.jpg)
 
 2) Show screenshots comparing the 'hound.off' of the normal based reconstruction to the point based reconstruction of the mandatory task.
 
