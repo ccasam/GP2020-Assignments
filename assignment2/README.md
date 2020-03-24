@@ -63,7 +63,7 @@ Red points represent positive values of the implicit function, green points nega
 
 * Paper reconstruction
 
-![normal](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/hound_paper.ong)
+![normal](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/hound_paper.png)
 
 Note that the back of the neck of the hound seems a bit smoother in the paperreconstruction. The neck shape is an example of undesirable oscillatory behavior as the evaluation point moves away from the surface, as explained in the paper.
 
