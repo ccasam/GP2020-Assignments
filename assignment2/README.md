@@ -71,4 +71,4 @@ Note that the back of the neck of the hound, which is a sharp feature, is better
 
 ![Poisson](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/poissonhound.png )
 
-![RIMLS](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/marchingcubesRIMLS.png)
+![RIMLS](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/RIMLS.png)
