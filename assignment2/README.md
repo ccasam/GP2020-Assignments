@@ -25,12 +25,22 @@ Red points represent positive values of the implicit function, green points nega
 
 3) Show screenshots of the reconstructed surfaces. Experiment with different parameter settings: grid resolution (also anisotropic in the 3 axes), Wendland function radius, polynomial degree. Add all these settings to the GUI to ease experimentation. Briefly summarize your observations and save the reconstructed models in the off format for every point-cloud dataset provided (assignment2/results).
 
-* Cat
+* Cat (radius = 0.07 \*diagonal, resolution = 20, polydegree = 0)
 
 ![Cat](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/cat.png)
 
 
-* Luigi
+* Luigi (radius = 0.07\*diagonal, resolution = 30, polydegree = 0)
+
+![Luigi](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/luigi.png)
+
+
+* Luigi (radius = 0.2\*diagonal, resolution = 30, polydegree = 0)
+
+![Luigi](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/luigi.png)
+
+
+* Luigi (radius = 0.1\*diagonal, resolution = 30, polydegree = 1)
 
 ![Luigi](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/luigi.png)
 
@@ -65,10 +75,12 @@ Red points represent positive values of the implicit function, green points nega
 
 ![normal](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/hound_paper.png)
 
-Note that the back of the neck of the hound, which is a sharp feature, is better preserved in the paper reconstruction. Their method based on normals is in fact more suitable in presence of such features. The other important advantage of the papaer implementation is that it is sensibly faster than the standard implementation. This is due to the fact that in the papaer implementation we only have n constraints, versus the 3n constraints of the standard implementation.
+Note that the back of the neck of the hound, which is a sharp feature (it should probably not exist as we will notice in the next section), is better preserved in the paper reconstruction. Their method based on normals is in fact more suitable in presence of such features. The other important advantage of the papaer implementation is that it is sensibly faster than the standard implementation. This is due to the fact that in the papaer implementation we only have n constraints, versus the 3n constraints of the standard implementation.
 
 3) Compare your MLS reconstruction results to the surfaces obtained with Screened Poisson Reconstruction and RIMLS, and try to understand the differences. Report your findings.
 
 ![Poisson](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/poissonhound.png )
 
 ![RIMLS](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/RIMLS.png)
+
+Tha main difference we notice is that the "sharp feature" of the neck that was reconstructed by our MLS method is now not present anymore. Visually, is is clear that such a sharp feature is in fact a mistake and both poisson and RIMLS are able to detect the anomaly and correct for it, returning a smoother result on the neck. The screen we reported for RIMLS has resolution = 200 (we left all the Meshlab parameters unchanged), and even if this is much higher than the resolution we used for our implementation (usually 20 to 30), the computing time is much lower. Similarly, Poisson surface reconstruction is extremely fast, but gives less detailed reconstrunctions when compared to RIMLS.
