@@ -31,7 +31,7 @@ Red points represent positive values of the implicit function, green points nega
 
 * Cat (radius = 0.07 \*diagonal, resolution = 60, polydegree = 0)
 
-![Cat](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/cat.png)
+![Cat](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/catresolution.png)
 
 
 * Luigi (radius = 0.07\*diagonal, resolution = 30, polydegree = 0)
@@ -41,17 +41,17 @@ Red points represent positive values of the implicit function, green points nega
 
 * Luigi (radius = 0.12\*diagonal, resolution = 30, polydegree = 1)
 
-![Luigi](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/luigi.png)
+![Luigi](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/luigiradius.png)
 
 
 * Sphere (radius = 0.05\*diagonal, resolution = 20, polydegree = 0)
 
-![Luigi](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/luigi.png)
+![Luigi](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/sphere0.png)
 
 
 * Sphere (radius = 0.05\*diagonal, resolution = 20, polydegree = 1)
 
-![Luigi](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/luigi.png)
+![Luigi](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/sphere1.png)
 
 
 
@@ -70,7 +70,11 @@ After these comments we report another couple of nice reconstructions, all obtai
 
 * Horse
 
+![Luigi](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/horse.png)
+
 * Bunny
+
+![Luigi](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/bunny.png)
 
 
 
