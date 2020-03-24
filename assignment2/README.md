@@ -46,7 +46,7 @@ Red points represent positive values of the implicit function, green points nega
 
 * Sphere (radius = 0.05\*diagonal, resolution = 20, polydegree = 0)
 
-![Luigi](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/sphere0.png)
+![Luigi](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/sphere00.png)
 
 
 * Sphere (radius = 0.05\*diagonal, resolution = 20, polydegree = 1)
@@ -61,12 +61,12 @@ Red points represent positive values of the implicit function, green points nega
 
 * Resolution: increasing the resolution improves the quality of the reconstruction, but makes the computations more expensive. The cat was reconstructed with a resolution of 20; for Luigi we used a resolution of 30, wich was necessary because the legs are near to each other (lower resolution caused the legs to be united). The two previous pictures of the cat show the impact of changing the resolution.
 
-* Degree: with degree 0 we obtained better reconstructions; in fact, when increasing the degree, some extra matter around the true mesh appears. The best example to see the impact of the degree is the sphere (which in our case does not have the problem of extra matter around the true mesh). Keeping fixed the other parameters we can see that increasing polydegree from 0 to 1 has a smoothing effect. Note that such an effect can be obtained in general also increasing the wendland radius, which in some cases can be a better choice because of the extra matter artifacts caused by the 
+* Degree: with degree 0 we obtained better reconstructions; in fact, when increasing the degree, some extra matter around the true mesh appears. The best example to see the impact of the degree is the sphere (which in our case does not have the problem of extra matter around the true mesh). Keeping fixed the other parameters we can see that increasing polydegree from 0 to 1 has a smoothing effect. Note that such an effect can be obtained in general also increasing the wendland radius, which in some cases can be a better choice because of the extra matter artifacts caused by the increased degree (we give an example of some artifacts below, on luigi). Here on the sphere we attentively chose a wendland radius to demonstrate the effect of polydegree.
 
 * Axis alignment: to save computation time, we load the mesh of Luigi in such a way that it is axis aligned. We implemented our simple axis alignment algorithm with PCA, namely taking the direction with highest variance in the point cloud and rotating the pointcloud (and corresponding normals!) in such a way that such direction is aligned with one of the axes (axis y for example).
 
 
-After these comments we report another couple of nice reconstructions, all obtained with polydegree 0:
+After these comments we report another couple of nice reconstructions, and an example of the extra matter problem caused bu increasing polydegree:
 
 * Horse
 
@@ -75,6 +75,10 @@ After these comments we report another couple of nice reconstructions, all obtai
 * Bunny
 
 ![Luigi](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/bunny.png)
+
+* Luigi (polydeg1)
+
+![Luigi](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/luigideg1.png)
 
 
 
