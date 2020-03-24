@@ -106,7 +106,11 @@ Note that the back of the neck of the hound, which is a sharp feature (it is not
 
 3) Compare your MLS reconstruction results to the surfaces obtained with Screened Poisson Reconstruction and RIMLS, and try to understand the differences. Report your findings.
 
+* Poisson
+
 ![Poisson](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/poissonhound.png )
+
+* RIMLS
 
 ![RIMLS](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/RIMLS.png)
 
