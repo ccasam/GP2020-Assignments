@@ -66,7 +66,7 @@ Red points represent positive values of the implicit function, green points nega
 * Axis alignment: to save computation time, we load the mesh of Luigi in such a way that it is axis aligned. We implemented our simple axis alignment algorithm with PCA, namely taking the direction with highest variance in the point cloud and rotating the pointcloud (and corresponding normals!) in such a way that such direction is aligned with one of the axes (axis y for example).
 
 
-Here we report another couple of nice reconstructions, and an example of the extra matter problem caused bu increasing polydegree:
+Here we report another couple of nice reconstructions, and an example of the extra matter problem caused by increasing polydegree:
 
 * Horse
 
