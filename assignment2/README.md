@@ -53,7 +53,7 @@ Proof that normal to surface is proportional to the gradient:
 ![normal](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/gradient_orthogonal.jpeg)
 
 Moving Least Squares explicit gradient computation:
-![MLS gradient](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/gradient.jpg)
+![MLS gradient](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/mlsgrad.jpg)
 
 2) Show screenshots comparing the 'hound.off' of the normal based reconstruction to the point based reconstruction of the mandatory task.
 
