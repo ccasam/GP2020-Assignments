@@ -13,7 +13,7 @@ The image below reports the constrained points for the cat. Epsilon has been adj
 
 2) Show screenshots of the grid with nodes colored according to their implicit function values (cat.off and luigi.off).
 
-Red points represent positive values of the implicit function, green points negative values. The grid has been slightly expanded around the mesh in all dimensions, to avoid artifacts in the mesh reconstruction.
+Red points represent positive values of the implicit function, green points negative values. The grid has been slightly expanded around the mesh in all dimensions, to avoid artifacts in the mesh reconstruction. We started with an initiali epsilon of 0.3 \* diagonal and halved it until the nearest point of each off-surface constraint was the corrisponding on-surface constraint. Epsilon in the end is the same for each point of the poincloud.
 
 * Cat
 
@@ -59,14 +59,14 @@ Red points represent positive values of the implicit function, green points nega
 
 * Wendland radius: increasing the radius gives a smoother surface and generally cause loss of details. On the contrary, a too small radius does not allow to reconstruct the mesh, since otherwise no points on the grid would have neighboring constrained points and we could not fit a polynomial locally. We use a radius dependent on the dimension of the bounding box diagonal. The two previous pictures of Luigi show the impact of the radius on the reconstruction.
 
-* Resolution: increasing the resolution improves the quality of the reconstruction, but makes the computations more expensive. The cat was reconstructed with a resolution of 20; for Luigi we used a resolution of 30, wich was necessary because the legs are near to each other (lower resolution caused the legs to be united). The two previous pictures of the cat show the impact of changing the resolution.
+* Resolution: increasing the resolution improves the quality of the reconstruction, but makes the computations more expensive. It was necessary to have a resolution of at least 30 on luigi because the legs are near to each other (lower resolution caused the legs to be united). The two previous pictures of the cat show the impact of changing the resolution.
 
-* Degree: with degree 0 we obtained better reconstructions; in fact, when increasing the degree, some extra matter around the true mesh appears. The best example to see the impact of the degree is the sphere (which in our case does not have the problem of extra matter around the true mesh). Keeping fixed the other parameters we can see that increasing polydegree from 0 to 1 has a smoothing effect. Note that such an effect can be obtained in general also increasing the wendland radius, which in some cases can be a better choice because of the extra matter artifacts caused by the increased degree (we give an example of some artifacts below, on luigi). Here on the sphere we attentively chose a wendland radius to demonstrate the effect of polydegree.
+* Degree: with degree 0 we obtained better reconstructions; in fact, when increasing the degree, some extra matter around the true mesh appears. The best example to see the impact of the degree is the sphere (which in our case does not have the problem of extra matter around the true mesh). Keeping fixed the other parameters we can see that increasing polydegree from 0 to 1 has a smoothing effect. Note that such an effect can be obtained in general also increasing the wendland radius, which in some cases can be a better choice because of the extra matter artifacts caused by the increased degree (we give an example of some artifacts below, on luigi). Here on the sphere we attentively chose the wendland radius to demonstrate the effect of polydegree.
 
 * Axis alignment: to save computation time, we load the mesh of Luigi in such a way that it is axis aligned. We implemented our simple axis alignment algorithm with PCA, namely taking the direction with highest variance in the point cloud and rotating the pointcloud (and corresponding normals!) in such a way that such direction is aligned with one of the axes (axis y for example).
 
 
-After these comments we report another couple of nice reconstructions, and an example of the extra matter problem caused bu increasing polydegree:
+Here we report another couple of nice reconstructions, and an example of the extra matter problem caused bu increasing polydegree:
 
 * Horse
 
