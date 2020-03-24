@@ -65,7 +65,7 @@ Red points represent positive values of the implicit function, green points nega
 
 ![normal](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/hound_paper.png)
 
-Note that the back of the neck of the hound seems a bit smoother in the paperreconstruction. The neck shape is an example of undesirable oscillatory behavior as the evaluation point moves away from the surface, as explained in the paper.
+Note that the back of the neck of the hound, which is a sharp feature, is better preserved in the paper reconstruction. Their method based on normals is in fact more suitable in presence of such features. The other important advantage of the papaer implementation is that it is sensibly faster than the standard implementation. This is due to the fact that in the papaer implementation we only have n constraints, versus the 3n constraints of the standard implementation.
 
 3) Compare your MLS reconstruction results to the surfaces obtained with Screened Poisson Reconstruction and RIMLS, and try to understand the differences. Report your findings.
 
