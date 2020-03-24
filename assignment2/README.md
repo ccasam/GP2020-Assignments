@@ -29,30 +29,49 @@ Red points represent positive values of the implicit function, green points nega
 
 ![Cat](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/cat.png)
 
+* Cat (radius = 0.07 \*diagonal, resolution = 60, polydegree = 0)
+
+![Cat](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/cat.png)
+
 
 * Luigi (radius = 0.07\*diagonal, resolution = 30, polydegree = 0)
 
 ![Luigi](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/luigi.png)
 
 
-* Luigi (radius = 0.2\*diagonal, resolution = 30, polydegree = 0)
+* Luigi (radius = 0.12\*diagonal, resolution = 30, polydegree = 1)
 
 ![Luigi](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/luigi.png)
 
 
-* Luigi (radius = 0.1\*diagonal, resolution = 30, polydegree = 1)
+* Sphere (radius = 0.05\*diagonal, resolution = 20, polydegree = 0)
 
 ![Luigi](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/luigi.png)
+
+
+* Sphere (radius = 0.05\*diagonal, resolution = 20, polydegree = 1)
+
+![Luigi](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/luigi.png)
+
+
 
 ### Comments
 
-* Wendland radius: increasing the radius gives a smoother surface and generally cause loss of details. On the contrary, a too small radius does not allow to reconstruct the mesh, since otherwise no points on the grid would have neighboring constrained points and we could not fit a polynomial locally. We use a radius deoendent on the dimension of the bounding box diagonal (in the two meshes shown here we used r= 0.07\*diagonal).
+* Wendland radius: increasing the radius gives a smoother surface and generally cause loss of details. On the contrary, a too small radius does not allow to reconstruct the mesh, since otherwise no points on the grid would have neighboring constrained points and we could not fit a polynomial locally. We use a radius dependent on the dimension of the bounding box diagonal. The two previous pictures of Luigi show the impact of the radius on the reconstruction.
 
-* Resolution: increasing the resolution improves the quality of the reconstruction, but makes the computations more expensive. The cat was reconstructed with a resolution of 20; for Luigi we used a resolution of 30, wich was necessary because the legs are near to each other (lower resolution caused the legs to be united).
+* Resolution: increasing the resolution improves the quality of the reconstruction, but makes the computations more expensive. The cat was reconstructed with a resolution of 20; for Luigi we used a resolution of 30, wich was necessary because the legs are near to each other (lower resolution caused the legs to be united). The two previous pictures of the cat show the impact of changing the resolution.
 
-* Degree: with degree 0 we obtained better reconstructions; in fact, when increasing the degree, some extra matter around the true mesh appears.
+* Degree: with degree 0 we obtained better reconstructions; in fact, when increasing the degree, some extra matter around the true mesh appears. The best example to see the impact of the degree is the sphere (which in our case does not have the problem of extra matter around the true mesh). Keeping fixed the other parameters we can see that increasing polydegree from 0 to 1 has a smoothing effect. Note that such an effect can be obtained in general also increasing the wendland radius, which in some cases can be a better choice because of the extra matter artifacts caused by the 
 
 * Axis alignment: to save computation time, we load the mesh of Luigi in such a way that it is axis aligned. We implemented our simple axis alignment algorithm with PCA, namely taking the direction with highest variance in the point cloud and rotating the pointcloud (and corresponding normals!) in such a way that such direction is aligned with one of the axes (axis y for example).
+
+
+After these comments we report another couple of nice reconstructions, all obtained with polydegree 0:
+
+* Horse
+
+* Bunny
+
 
 
 ### Theory question: Save your notes to assignment2/results and add a link to this page.
@@ -75,7 +94,7 @@ Red points represent positive values of the implicit function, green points nega
 
 ![normal](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/hound_paper.png)
 
-Note that the back of the neck of the hound, which is a sharp feature (it should probably not exist as we will notice in the next section), is better preserved in the paper reconstruction. Their method based on normals is in fact more suitable in presence of such features. The other important advantage of the papaer implementation is that it is sensibly faster than the standard implementation. This is due to the fact that in the papaer implementation we only have n constraints, versus the 3n constraints of the standard implementation.
+Note that the back of the neck of the hound, which is a sharp feature (it is not really a sharp feature as we will point out in the next section, but it could be interpreted as such), is better preserved in the paper reconstruction. Their method based on normals is in fact more suitable in presence of such features. The other important advantage of the papaer implementation is that it is sensibly faster than the standard implementation. This is due to the fact that in the papaer implementation we only have n constraints, versus the 3n constraints of the standard implementation.
 
 3) Compare your MLS reconstruction results to the surfaces obtained with Screened Poisson Reconstruction and RIMLS, and try to understand the differences. Report your findings.
 
