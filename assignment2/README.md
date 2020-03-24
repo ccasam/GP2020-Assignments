@@ -49,13 +49,23 @@ Red points represent positive values of the implicit function, green points nega
 
 1) Save your notes and add a link to this page.
 
-Proof that normal to surface is proportional to the gradient:
+* Proof that normal to surface is proportional to the gradient:
 ![normal](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/gradient_orthogonal.jpeg)
 
-Moving Least Squares explicit gradient computation:
+* Moving Least Squares explicit gradient computation:
 ![MLS gradient](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/mlsgrad.jpeg)
 
 2) Show screenshots comparing the 'hound.off' of the normal based reconstruction to the point based reconstruction of the mandatory task.
+
+* Standard reconstruction
+
+![normal](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/hound_standard.png)
+
+* Paper reconstruction
+
+![normal](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/hound_paper.ong)
+
+Note that the back of the neck of the hound seems a bit smoother in the paperreconstruction. The neck shape is an example of undesirable oscillatory behavior as the evaluation point moves away from the surface, as explained in the paper.
 
 3) Compare your MLS reconstruction results to the surfaces obtained with Screened Poisson Reconstruction and RIMLS, and try to understand the differences. Report your findings.
 
