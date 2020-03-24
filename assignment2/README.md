@@ -44,12 +44,12 @@ Red points represent positive values of the implicit function, green points nega
 ![Luigi](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/luigiradius.png)
 
 
-* Sphere (radius = 0.05\*diagonal, resolution = 20, polydegree = 0)
+* Sphere (radius = 0.045\*diagonal, resolution = 20, polydegree = 0)
 
 ![Luigi](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/sphere00.png)
 
 
-* Sphere (radius = 0.05\*diagonal, resolution = 20, polydegree = 1)
+* Sphere (radius = 0.045\*diagonal, resolution = 20, polydegree = 1)
 
 ![Luigi](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/sphere1.png)
 
@@ -110,4 +110,4 @@ Note that the back of the neck of the hound, which is a sharp feature (it is not
 
 ![RIMLS](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/RIMLS.png)
 
-Tha main difference we notice is that the "sharp feature" of the neck that was reconstructed by our MLS method is now not present anymore. Visually, is is clear that such a sharp feature is in fact a mistake and both poisson and RIMLS are able to detect the anomaly and correct for it, returning a smoother result on the neck. Such a sharp feature is in fact caused by a lack of data points on the neck but RIMLS is a method whose improvement is indeed robustness to outliers and situations analogous to this one. The screen we reported for RIMLS has resolution = 200 (we left all the Meshlab parameters unchanged), and even if this is much higher than the resolution we used for our implementation (usually 20 to 30), the computing time is much lower. Similarly, Poisson surface reconstruction is extremely fast, but gives less detailed reconstrunctions when compared to RIMLS.
+Tha main difference we notice is that the "sharp feature" of the neck that was reconstructed by our MLS method is now not present anymore. Visually, is is clear that such a sharp feature is in fact a mistake and both poisson and RIMLS are able to detect the anomaly and correct for it, returning a smoother result on the neck. Such a sharp feature is in fact caused by a lack of data points on the neck but RIMLS is a method whose improvement is indeed robustness to outliers and situations analogous to this one. The screen we reported for RIMLS has resolution = 200 (we left all the Meshlab parameters unchanged), and even if this is much higher than the resolution we used for our implementation (usually 20 to 30), the computing time is much lower. Similarly, Poisson surface reconstruction is extremely fast, but gives less detailed reconstrunctions when compared to RIMLS. To summarize, paper implementation versus standard marching cubes behaves better on sharp features; poisson is super fat and RIMLS is super fast but also much more robust.
