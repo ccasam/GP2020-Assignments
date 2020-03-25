@@ -94,15 +94,15 @@ Here we report another couple of nice reconstructions, and an example of the ext
 
 2) Show screenshots comparing the 'hound.off' of the normal based reconstruction to the point based reconstruction of the mandatory task.
 
-* Standard reconstruction
+* Standard reconstruction (radius = 0.027\*diagonal, resolution = 40, polydegree = 0)
 
-![normal](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/hound_standard.png)
+![normal](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/hound4.png)
 
-* Paper reconstruction
+* Paper reconstruction (radius = 0.027\*diagonal, resolution = 40, polydegree = 0)
 
-![normal](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/hound_paper.png)
+![normal](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/hound5.png)
 
-Note that the back of the neck of the hound, which is a sharp feature (it is not really a sharp feature as we will point out in the next section, but it could be interpreted as such), is better preserved in the paper reconstruction. Their method based on normals is in fact more suitable in presence of such features. The other important advantage of the papaer implementation is that it is sensibly faster than the standard implementation. This is due to the fact that in the papaer implementation we only have n constraints, versus the 3n constraints of the standard implementation.
+The problematic part of the mesh is that it lacks data on the back of the neck of the hound. Note that this part is better reconstructed with the paper implementation. Their method based on normals is in fact more suitable in presence of such features and can better exploit normal information. The other important advantage of the papaer implementation is that it is sensibly faster than the standard implementation. This is due to the fact that in the papaer implementation we only have n constraints, versus the 3n constraints of the standard implementation.
 
 3) Compare your MLS reconstruction results to the surfaces obtained with Screened Poisson Reconstruction and RIMLS, and try to understand the differences. Report your findings.
 
