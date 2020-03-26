@@ -33,7 +33,7 @@ double high = 3.f;
 double wendlandRadius = 0.07;
 
 // Parameter: grid resolution
-int resolution = 30;
+int resolution = 20;
 
 // Intermediate result: grid points, at which the imlicit function will be evaluated, #G x3
 Eigen::MatrixXd grid_points;
@@ -71,6 +71,12 @@ double dx, dy, dz;
 
 // Index maps
 unordered_map<int, vector<int>> ConstrainedIndex, Pindex;
+
+// Filename
+std::string filename;
+
+// PCA alignment
+int align_axes = 0;
 
 // Functions
 void createGrid();
@@ -187,56 +193,45 @@ Eigen::MatrixXd poly_vector(const Eigen::MatrixXd &p)
 {
     // Assume the degree can be 0, 1 or 2
     Eigen::MatrixXd res;
-    int n = p.rows(); // Number of constrained points
+    const int n = p.rows(); // Number of constrained points
     if (deg == 0)
     {
         res.resize(n, 1);
-        for (int i = 0; i < n; i++)
-        {
-            res.row(i) << 1;
-        }
+        res.setOnes(n, 1);
         return res;
     }
     else if (deg == 1)
     {
         res.resize(n, 4);
-        for (int i = 0; i < n; i++)
-        {
-            res.row(i) << 1, p.row(i);
-        }
+        res.setOnes(n, 4);
+        res.block(0, 1, p.rows(), 3) = p;
         return res;
     }
     else
     {
         res.resize(n, 10);
-        for (int i = 0; i < n; i++)
-        {
-            res.row(i) << 1, p.row(i), p(i, 0) * p(i, 0),
-                p(i, 1) * p(i, 1), p(i, 2) * p(i, 2), p(i, 0) * p(i, 1),
-                p(i, 0) * p(i, 2), p(i, 1) * p(i, 2);
-        }
+        res.setOnes(n, 10);
+        res.block(0, 1, p.rows(), p.cols()) = p;
+        res.block(0, 4, p.rows(), p.cols()) = p.cwiseAbs2();
+        res.block(0, 7, p.rows(), 1) = p.col(0).cwiseProduct(p.col(1));
+        res.block(0, 8, p.rows(), 1) = p.col(1).cwiseProduct(p.col(2));
+        res.block(0, 9, p.rows(), 1) = p.col(2).cwiseProduct(p.col(0));
         return res;
     }
 }
 
-double wetland(double val, double radius)
+Eigen::MatrixXd proximity_weights_matrix(const Eigen::MatrixXd &x, const Eigen::MatrixXd &p, const double radius)
 {
-    // Assume val is in [0, radius]
-    double res;
-    res = pow(1 - (val / radius), 4) * ((4 * val / radius) + 1);
-    return res;
-}
-
-Eigen::MatrixXd proximity_weights_matrix(const Eigen::MatrixXd &x, Eigen::MatrixXd &p, double radius)
-{
-    int n = p.rows(); // Number of constrained points
-    Eigen::MatrixXd result(n, n);
-    result.setZero(n, n);
-    for (int i = 0; i < n; i++)
-    {
-        result(i, i) = sqrt(wetland((p.row(i) - x).norm(), radius)); //SQRTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
-    }
-    return result;
+    Eigen::MatrixXd v;
+    v = p;
+    v.rowwise() -= Eigen::RowVectorXd(x);
+    Eigen::MatrixXd val(p.rows(), 1);
+    val = v.rowwise().norm();
+    // Apply wendland on val
+    val /= radius;
+    val = ((1 - val.array()).pow(4) * ((4 * val).array() + 1)).matrix();
+    val = Eigen::VectorXd(val).asDiagonal();
+    return val.cwiseSqrt();
 }
 
 double implicitFunction(const Eigen::MatrixXd &x, double radius, const std::unordered_map<int, std::vector<int>> &indexMap)
@@ -279,6 +274,7 @@ double implicitFunction(const Eigen::MatrixXd &x, double radius, const std::unor
         A = proximity_w * poly_vect;
         b = proximity_w * constraints;
         Eigen::VectorXd c = A.colPivHouseholderQr().solve(b);
+        //Eigen::VectorXd c = (A.transpose() * A).ldlt().solve(A.transpose() * b);
 
         // Compute solution
         double computed_result;
@@ -297,11 +293,11 @@ double implicitFunctionPaper(const Eigen::MatrixXd &x, double radius, const std:
     // less than the min number of points to fit the polynomial
     // Find neighbors of x within radius
     std::vector<int> neighbors;
-    nearest(constrained_points, x, radius, neighbors, indexMap);
+    nearest(P, x, radius, neighbors, indexMap);
     std::unordered_map<int, int> dict;
     dict[0] = 1;
-    dict[1] = 4; // 4, 12
-    dict[2] = 14;
+    dict[1] = 4; // 4
+    dict[2] = 10;
     if (neighbors.size() < dict[deg])
     {
         return high;
@@ -312,7 +308,7 @@ double implicitFunctionPaper(const Eigen::MatrixXd &x, double radius, const std:
         Eigen::MatrixXd p(neighbors.size(), 3);
         for (int i = 0; i < neighbors.size(); i++)
         {
-            p.row(i) << constrained_points.row(neighbors[i]);
+            p.row(i) << P.row(neighbors[i]);
         }
         Eigen::MatrixXd proximity_w;
         proximity_w = proximity_weights_matrix(x, p, radius);
@@ -320,15 +316,13 @@ double implicitFunctionPaper(const Eigen::MatrixXd &x, double radius, const std:
         poly_vect = poly_vector(p);
         // Compute constrained values
         Eigen::VectorXd constraints(neighbors.size(), 1);
-        Eigen::MatrixXd N_norm(P.rows() * 3, 3);
+        Eigen::MatrixXd N_norm(P.rows(), 3);
         //N_norm.setZero(P.rows() * 3, 3);
-        N_norm.block(0, 0, P.rows(), 3) = N.rowwise().normalized();
-        N_norm.block(P.rows(), 0, P.rows(), 3) = N.rowwise().normalized();
-        N_norm.block(2 * P.rows(), 0, P.rows(), 3) = N.rowwise().normalized();
+        N_norm = N.rowwise().normalized();
 
         for (int i = 0; i < neighbors.size(); i++)
         {
-            constraints(i) = constrained_values(neighbors[i]) + ((Eigen::Vector3d)(x - constrained_points.row(neighbors[i])).transpose()).dot((Eigen::Vector3d)N_norm.row(neighbors[i]).transpose());
+            constraints(i) = ((Eigen::Vector3d)(x - P.row(neighbors[i])).transpose()).dot((Eigen::Vector3d)N_norm.row(neighbors[i]).transpose());
         }
         // Find the coefficients
         Eigen::MatrixXd A;
@@ -336,6 +330,7 @@ double implicitFunctionPaper(const Eigen::MatrixXd &x, double radius, const std:
         A = proximity_w * poly_vect;
         b = proximity_w * constraints;
         Eigen::VectorXd c = A.colPivHouseholderQr().solve(b);
+        //Eigen::VectorXd c = (A.transpose() * A).ldlt().solve(A.transpose() * b);
         // Compute solution
         double computed_result;
         Eigen::MatrixXd basis_x;
@@ -494,36 +489,6 @@ void find_epsilon(double init_epsilon, double &epsilon, Eigen::MatrixXd N_norm, 
     epsilon = init_epsilon;
 }
 
-/*
-void find_epsilon(double init_epsilon, double &epsilon, Eigen::MatrixXd N_norm, const std::unordered_map<int, std::vector<int>> &indexMap)
-{
-    cout << "start find eps" << endl;
-    Eigen::MatrixXd Outer(P.rows(), 3), Inner(P.rows(), 3);
-    Outer = P + N_norm * init_epsilon;
-    Inner = P - N_norm * init_epsilon;
-    std::vector<int> near_out = {}, near_in = {};
-    int flag = 1;
-
-    while (flag == 1)
-    {
-        init_epsilon = init_epsilon / 2;
-        Outer << P + (N_norm * init_epsilon);
-        Inner << P - (N_norm * init_epsilon);
-        flag = 0;
-        for (int i = 0; i < P.rows(); ++i)
-        {
-            nearest(P, Outer.row(i), init_epsilon * 2, near_out, indexMap);
-            nearest(P, Inner.row(i), init_epsilon * 2, near_in, indexMap);
-            if (near_out.empty() || near_in.empty() || near_out[0] != i || near_in[0] != i)
-            {
-                flag = 1;
-            }
-        }
-    }
-    epsilon = init_epsilon;
-    cout << "end find eps" << endl;
-}*/
-
 void NEAREST(const Eigen::MatrixXd &m, const Eigen::MatrixXd &x, double radius, std::vector<int> &result)
 {
     // Clear
@@ -624,6 +589,7 @@ void build_constraints(const Eigen::MatrixXd &N, const unordered_map<int, vector
     double diagonal = dim.norm();
     double init_epsilon = 0.03 * diagonal;
     double epsilon;
+
     find_epsilon(init_epsilon, epsilon, N_norm, indexMap);
 
     // Add outer/inner off surface constraints
@@ -645,6 +611,14 @@ bool callback_key_down(Viewer &viewer, unsigned char key, int modifiers)
         viewer.core.align_camera_center(P);
         viewer.data().point_size = 11;
         viewer.data().add_points(P, Eigen::RowVector3d(0, 0, 0));
+        // Test
+        /*igl::readOFF(filename, V, F);
+        viewer.data().clear();
+        viewer.data().set_mesh(V, F);
+        viewer.data().compute_normals();
+        viewer.core.align_camera_center(V, F);
+        viewer.data().clear();
+        viewer.data().set_mesh(V, F);*/
     }
 
     if (key == '2')
@@ -754,6 +728,10 @@ bool callback_key_down(Viewer &viewer, unsigned char key, int modifiers)
         viewer.data().show_lines = true;
         viewer.data().show_faces = true;
         viewer.data().set_normals(FN);
+
+        // Write mesh
+        std::string s = "../results/reconstructed_" + filename.substr(8, filename.length() - 7);
+        igl::writeOFF(s, V, F);
     }
 
     if (key == '5')
@@ -762,7 +740,7 @@ bool callback_key_down(Viewer &viewer, unsigned char key, int modifiers)
         createGrid();
 
         // Evaluate implicit function
-        evaluateImplicitFunc(wendlandRadius * dim.norm(), ConstrainedIndex, "paper");
+        evaluateImplicitFunc(wendlandRadius * dim.norm(), Pindex, "paper");
 
         // Show reconstructed mesh
         viewer.data().clear();
@@ -799,11 +777,11 @@ bool callback_load_mesh(Viewer &viewer, string filename)
 
 int main(int argc, char *argv[])
 {
-    std::string filename;
     if (argc != 2)
     {
         cout << "Usage ex2_bin <mesh.off>" << endl;
-        igl::readOFF("../data/sphere.off", P, F, N);
+        filename = "../data/sphere.off";
+        igl::readOFF(filename, P, F, N);
     }
     else
     {
@@ -815,7 +793,14 @@ int main(int argc, char *argv[])
     // Align the pointcloud with the axes
     if (filename == "../data/luigi.off")
     {
+        align_axes = 1;
         align_pointcloud(P, N);
+    }
+
+    if (filename == "../data/luigi.off" || filename == "../data/hound.off" || filename == "../data/horse.off")
+    {
+        resolution = 40;
+        wendlandRadius = 0.02;
     }
 
     // Grid bounds: axis-aligned bounding box
@@ -836,11 +821,8 @@ int main(int argc, char *argv[])
     dz = dim[2] / (double)(resolution - 1);
 
     // Build the constrained points and relative constraints
-    cout << "buildindexP" << endl;
     buildIndex(P, Pindex);
-    cout << "end index P. Start building constraints" << endl;
     build_constraints(N, Pindex);
-    cout << "end constraints. start second map" << endl;
 
     // Map for constraints
     buildIndex(constrained_points, ConstrainedIndex);
@@ -887,6 +869,38 @@ int main(int argc, char *argv[])
 
                 // Map for constraints
                 buildIndex(constrained_points, ConstrainedIndex);
+            }
+            // Button to align exes
+            if (ImGui::Button("Align axes", ImVec2(-1, 0)))
+            {
+                std::cout << "Axes aligned " << endl;
+
+                align_pointcloud(P, N);
+
+                // Grid bounds: axis-aligned bounding box
+                bb_min = P.colwise().minCoeff();
+                bb_max = P.colwise().maxCoeff();
+
+                // Bounding box dimensions
+                dim = bb_max - bb_min;
+
+                // Enlarge the grid!
+                bb_min = bb_min.array() - dim.norm() / exp_ratio;
+                bb_max = bb_max.array() + dim.norm() / exp_ratio;
+                dim = bb_max - bb_min;
+
+                // Grid spacing
+                dx = dim[0] / (double)(resolution - 1);
+                dy = dim[1] / (double)(resolution - 1);
+                dz = dim[2] / (double)(resolution - 1);
+
+                // Build the constrained points and relative constraints
+                buildIndex(P, Pindex);
+                build_constraints(N, Pindex);
+
+                // Map for constraints
+                buildIndex(constrained_points, ConstrainedIndex);
+                callback_key_down(viewer, '1', 0);
             }
 
             // Wendland radius
