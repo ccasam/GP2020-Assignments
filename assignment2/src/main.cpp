@@ -244,8 +244,8 @@ double implicitFunction(const Eigen::MatrixXd &x, double radius, const std::unor
     nearest(constrained_points, x, radius, neighbors, indexMap);
     std::unordered_map<int, int> dict;
     dict[0] = 1;
-    dict[1] = 4;  // 4
-    dict[2] = 10; // 10
+    dict[1] = 1; // 4
+    dict[2] = 1; // 10
     if (neighbors.size() < dict[deg])
     {
         return high;
@@ -296,8 +296,8 @@ double implicitFunctionPaper(const Eigen::MatrixXd &x, double radius, const std:
     nearest(P, x, radius, neighbors, indexMap);
     std::unordered_map<int, int> dict;
     dict[0] = 1;
-    dict[1] = 4; // 4
-    dict[2] = 10;
+    dict[1] = 1; // 4
+    dict[2] = 1;
     if (neighbors.size() < dict[deg])
     {
         return high;
