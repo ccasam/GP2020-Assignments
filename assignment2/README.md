@@ -102,7 +102,15 @@ Here we report another couple of nice reconstructions, and an example of the ext
 
 ![normal](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/hound5.png)
 
-The problematic part of the mesh is that it lacks data on the back of the neck of the hound. Note that this part is better reconstructed with the paper implementation. Their method based on normals is in fact more suitable in presence of such features and can better exploit normal information. The other important advantage of the papaer implementation is that it is sensibly faster than the standard implementation. This is due to the fact that in the papaer implementation we only have n constraints, versus the 3n constraints of the standard implementation. The positive effect of the normal based reconstruction is even more evident for the sphere. For a low wendland radius the sphere exhibits a wiggling behavior on the reconstructed mesh, while normal constraints can still give a perfect reconstruction as shown here below.
+* Standard reconstruction (radius = 0.02\*diagonal, resolution = 40, polydegree = 0)
+
+![normal](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/houndwiggle.png)
+
+* Paper reconstruction (radius = 0.02\*diagonal, resolution = 40, polydegree = 0)
+
+![normal](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/houndsmooth.png)
+
+The problematic part of the mesh is that it lacks data on the back of the neck of the hound. Note that this part is better reconstructed with the paper implementation. Their method based on normals is in fact more suitable in presence of such features and can better exploit normal information; this is shown in the first two houd images. The second pair of images shows that with lower radius the hound reconstruction wiggles, while the paper reconstruction gives a smoother result. The other important advantage of the papaer implementation is that it is sensibly faster than the standard implementation. This is due to the fact that in the papaer implementation we only have n constraints, versus the 3n constraints of the standard implementation. The positive effect of the normal based reconstruction is even more evident for the sphere. For a low wendland radius the sphere exhibits a wiggling behavior on the reconstructed mesh, while normal constraints can still give a perfect reconstruction as shown here below.
 
 * Standard reconstruction (radius = 0.04\*diagonal, resolution = 20, polydegree = 0)
 
