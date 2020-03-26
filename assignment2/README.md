@@ -25,31 +25,31 @@ Red points represent positive values of the implicit function, green points nega
 
 3) Show screenshots of the reconstructed surfaces. Experiment with different parameter settings: grid resolution (also anisotropic in the 3 axes), Wendland function radius, polynomial degree. Add all these settings to the GUI to ease experimentation. Briefly summarize your observations and save the reconstructed models in the off format for every point-cloud dataset provided (assignment2/results).
 
-* Cat (radius = 0.07 \*diagonal, resolution = 20, polydegree = 0)
+* Cat (radius = 0.07 \*diagonal, **resolution = 20**, polydegree = 0)
 
 ![Cat](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/cat.png)
 
-* Cat (radius = 0.07 \*diagonal, resolution = 60, polydegree = 0)
+* Cat (radius = 0.07 \*diagonal, **resolution = 60**, polydegree = 0)
 
 ![Cat](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/catresolution.png)
 
 
-* Luigi (radius = 0.07\*diagonal, resolution = 30, polydegree = 0)
+* Luigi (**radius = 0.07\*diagonal**, resolution = 30, polydegree = 0)
 
 ![Luigi](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/luigi.png)
 
 
-* Luigi (radius = 0.12\*diagonal, resolution = 30, polydegree = 1)
+* Luigi (**radius = 0.12\*diagonal**, resolution = 30, polydegree = 0)
 
 ![Luigi](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/luigiradius.png)
 
 
-* Sphere (radius = 0.045\*diagonal, resolution = 20, polydegree = 0)
+* Sphere (radius = 0.045\*diagonal, resolution = 20, **polydegree = 0**)
 
 ![Luigi](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/sphere00.png)
 
 
-* Sphere (radius = 0.045\*diagonal, resolution = 20, polydegree = 1)
+* Sphere (radius = 0.045\*diagonal, resolution = 20, **polydegree = 1**)
 
 ![Luigi](https://github.com/ccasam/GP2020-Assignments/blob/master/assignment2/results/sphere1.png)
 
@@ -112,7 +112,7 @@ Here we report another couple of nice reconstructions, and an example of the ext
 
 
 
-The first pair of images shows that with low radius the hound reconstruction wiggles, while the paper reconstruction gives a smoother result. This is indeed the main contribution of the normal constraint reconstruction, i.e. being able to reduce the oscillating behavior exploiting better the normal information. The second pair of images shows that with a bit higher radius (when the oscillating effect is no more visible by human eye) the method can explloit normal information better, giving a better reconstruction of the neck of the hound, which is a problematic region due to the lack of data in the pointcloud.
+The first pair of images shows that with low radius the hound reconstruction wiggles, while the paper reconstruction gives a smoother result. This is indeed the main contribution of the normal constraint reconstruction, i.e. being able to reduce the oscillating behavior exploiting better the normal information. The second pair of images shows that with a bit higher radius (when the oscillating effect is no more visible by human eye) the method can still exploit normal information better, giving a better reconstruction of the neck of the hound, which is a problematic region due to the lack of data in the pointcloud.
 The other important advantage of the papaer implementation is that it is sensibly faster than the standard implementation. This is due to the fact that in the papaer implementation we only have n constraints, versus the 3n constraints of the standard implementation. The positive effect of the normal based reconstruction is even more evident for the sphere. For a low wendland radius the sphere exhibits a wiggling behavior on the reconstructed mesh, while normal constraints can still give a perfect reconstruction as shown here below.
 
 * Standard reconstruction (radius = 0.04\*diagonal, resolution = 20, polydegree = 0)
